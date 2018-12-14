@@ -12,5 +12,17 @@
 			<td th:text="${person.firstName}" />
 		</tr>
 	</table>
+
+	<form action="#" th:action="@{/personas}" th:object="${person}"
+		method="post">
+		<label for="name">Name</label> 
+			<input type="text" th:field="*{firstName}"
+				id="firstName" placeholder="Nombre"> 
+		<label for="name">Name</label>		
+			<input type="text" th:field="*{lastName}"
+				id="lastName" placeholder="Apellido"> 	
+		 <input type="submit" value="Add User">
+	</form>
+
 </body>
 </html>
