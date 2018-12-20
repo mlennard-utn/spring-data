@@ -1,6 +1,9 @@
 package hello;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +17,19 @@ public class PersonController {
 	@Autowired
 	private PersonRepository personRepository;
 	
+	@Autowired 
+	private JobRepository jobRepository;
+	
+	@Autowired
+	private EntityManager entityManager;
+	
+	@Autowired 
+	private Service service;
+	
 	@GetMapping("/personas")
 	public String getPersons(Model model) {
 	
-		Iterable<Person> personas = new ArrayList<>(); //personRepository.findAll();
+		Iterable<Person> personas = personRepository.findAll();
 		
 		model.addAttribute("personas", personas);
 		Person p = new Person();
@@ -31,4 +43,11 @@ public class PersonController {
 		return "persons";
 	}
 	
+	@PostMapping(value="/asignarTrabajo", consumes="application/json", produces="application/json")
+	public String asignarTrabajo() {
+		
+		service.asignarTrabajo();
+		
+		return "OK";
+	}
 }
